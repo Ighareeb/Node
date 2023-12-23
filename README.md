@@ -1,3 +1,4 @@
-Building RESTful APIs with Node.js and Express\n
+Building RESTful APIs with Node.js and Express
+
 Coursera
 Board Infinity
