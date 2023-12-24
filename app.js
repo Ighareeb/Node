@@ -8,7 +8,7 @@ dbConnect();
 const User = require('./db/userModel');
 //create a new user
 const newUser = new User({
-	email: 'example2@email.com',
+	email: 'example5@email.com',
 	password: 'password123',
 });
 
@@ -45,12 +45,21 @@ User.find({ email: 'example@email.com' })
 // and 2nd argument is the update object that specifies the fields to be update
 // able to specify update operation/specific actions using operators
 // rename, un/set, inc(for fields) push, pull, pop, addToSet (for Arrays)
-User.updateOne({ email: 'example2@email.com' }, { password: 'newpassword123' })
+User.deleteOne({ email: 'example2@email.com' }, { password: 'newpassword123' })
 	.then((users) => {
 		console.log('User updated successfully: '.users);
 	})
 	.catch((error) => {
 		console.error('Error updating user: ', error);
+	});
+
+// DELETE using deleteOne()/deleteMany() passing query object as argument
+User.deleteOne({ email: 'example2@email.com' })
+	.then((users) => {
+		console.log('User deleted successfully: ', users);
+	})
+	.catch((error) => {
+		console.error('Error deleting user: ', error);
 	});
 
 module.exports = app;
