@@ -62,4 +62,17 @@ User.deleteOne({ email: 'example2@email.com' })
 		console.error('Error deleting user: ', error);
 	});
 
+//CREATE INDEX (argument is the field you create index on) so COVERED QUERIES can be made.
+User.collection.createIndex({ email: 1 });
+//use find method to query documents; .select() chained to specify which fields to include in the query result
+//not automatically generated id from MongoDB accessed with underscore id (_id)
+User.find({ email: 'example@email.com' })
+	.select({ email: 1, _id: 0 })
+	.then((users) => {
+		console.log('Users found: ', users);
+	})
+	.catch((error) => {
+		console.error('Error finding user: ', error);
+	});
+
 module.exports = app;
