@@ -45,7 +45,7 @@ User.find({ email: 'example@email.com' })
 // and 2nd argument is the update object that specifies the fields to be update
 // able to specify update operation/specific actions using operators
 // rename, un/set, inc(for fields) push, pull, pop, addToSet (for Arrays)
-User.deleteOne({ email: 'example2@email.com' }, { password: 'newpassword123' })
+User.updateOne({ email: 'example2@email.com' }, { password: 'newpassword123' })
 	.then((users) => {
 		console.log('User updated successfully: '.users);
 	})
