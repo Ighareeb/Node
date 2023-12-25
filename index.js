@@ -101,3 +101,22 @@ const users = [
 	{ id: 1, username: 'admin', password: 'admin123' },
 	{ id: 2, username: 'user', password: 'user123' },
 ];
+
+//Configure JWT strategy
+passport.use(
+	new JWTStrategy(
+		{
+			jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(), //extracts JWT from Authorization header
+			secretKey: secretKey,
+		},
+		(jwtPayload, done) => {
+			const user = users.find((u) => u.id === jwtPayload.sub);
+
+			if (user) {
+				return done(null, user);
+			} else {
+				return done(null, false);
+			}
+		},
+	),
+);
