@@ -120,3 +120,19 @@ passport.use(
 		},
 	),
 );
+
+//create route for generating JWT
+app.post('/login', (req, res) => {
+	const { username, password } = req.body;
+	const user = user.find(
+		(u) => u.username === username && u.password === password,
+	);
+
+	if (user) {
+		const payload = { sub: user.id, username: user.username }; //payload to be signed
+		const token = jwt.sign(payload, secretKey);
+		res.json({ token: token }); //returns token to client
+	} else {
+		res.status(401).json({ message: 'Authentication failed' });
+	}
+});
