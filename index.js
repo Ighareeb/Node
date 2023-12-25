@@ -83,3 +83,21 @@ const passport = require('passport'); //authentication middleware
 const passportJWT = require('passport-jwt'); //for implementing JWT strategy
 const jwt = require('jsonwebtoken'); //for generating and verifying JWTs
 //npm i passport passport-jwt jsonwebtoken
+
+const app = express();
+// key that will be used to sign & verify JWT tokens
+const secretKey = process.env.SECRET_KEY || 'secret'; //normally located in .env file rather than declared here
+
+//no need to install body-parser on newer versions of Express as included by default
+app.use(express.json()); //parses incoming JSON request bodies
+
+app.use(passport.initialize()); //initializes passport.js
+
+//define JWT strategy and Extract method (taken from passportJWT)
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
+
+const users = [
+	{ id: 1, username: 'admin', password: 'admin123' },
+	{ id: 2, username: 'user', password: 'user123' },
+];
