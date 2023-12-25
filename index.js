@@ -136,3 +136,15 @@ app.post('/login', (req, res) => {
 		res.status(401).json({ message: 'Authentication failed' });
 	}
 });
+
+//create protected route
+app.get(
+	'/protected',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		res.json({ message: 'Protected route accessed successfully' });
+	},
+);
+app.listen(3000, () => {
+	console.log('Server running on port 3000');
+});
